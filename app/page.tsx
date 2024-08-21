@@ -29,16 +29,16 @@
 
 import { useEffect, useState } from "react";
 
-const useThemeDetector = () => {
-  const getCurrentTheme = () =>
+const useThemeDetector = (): boolean => {
+  const getCurrentTheme = (): boolean =>
     window.matchMedia("(prefers-color-scheme: dark)").matches;
-  const [isDarkTheme, setIsDarkTheme] = useState(getCurrentTheme());
+
+  const [isDarkTheme, setIsDarkTheme] = useState<boolean>(getCurrentTheme());
 
   useEffect(() => {
     const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
 
-    // Using addEventListener instead of addListener
-    const mqListener = (e) => {
+    const mqListener = (e: MediaQueryListEvent): void => {
       setIsDarkTheme(e.matches);
     };
 
@@ -52,7 +52,7 @@ const useThemeDetector = () => {
   return isDarkTheme;
 };
 
-export default function Home() {
+export default function Home(): JSX.Element {
   const isDarkTheme = useThemeDetector();
   return (
     <>
